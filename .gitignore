@@ -3,5 +3,13 @@ src/mc_single_arm
 #*
 *~
 *#
+# Python build artefacts
+__pycache__/
+*.py[cod]
+*.pyo
+# Generated output / ntuple data
+worksim/*.npz
+worksim/*.bin
+outfiles/*.out
 
 
