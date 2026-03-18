@@ -58,6 +58,21 @@ This generates:
 - `../outfiles/<output_stem>.out`
 - `../worksim/<output_stem>.npz`
 
+## Jupyter 可视化
+
+新增 notebook: `python/visualize_ntuple.ipynb`，用于可视化 `worksim/*.npz`
+中的 `ntuple` 数据。
+
+使用方式：
+
+```bash
+cd python
+jupyter notebook visualize_ntuple.ipynb
+```
+
+在 notebook 中把 `output_stem` 改成你运行 `mc_single_arm.py` 时使用的输入名
+（不带 `.npz` 后缀），即可加载 `../worksim/<output_stem>.npz` 并绘图。
+
 ## Input file format
 
 The input file format is **identical** to the Fortran version.  Lines
