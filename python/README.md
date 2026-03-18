@@ -39,6 +39,25 @@ Example:
 python mc_single_arm.py hms_40deg_carbon_1560
 ```
 
+### Generate SHMS custom central-ray simulation data
+
+For SHMS standard configuration (cryo17-style setup) with a custom central ray:
+
+```bash
+python generate_shms_custom_central_ray.py <output_stem> <p_spec_mev> <th_spec_deg> [n_trials]
+```
+
+Example:
+
+```bash
+python generate_shms_custom_central_ray.py shms_custom_3200_18deg 3200 18 2000
+```
+
+This generates:
+- `../infiles/<output_stem>.inp`
+- `../outfiles/<output_stem>.out`
+- `../worksim/<output_stem>.npz`
+
 ## Input file format
 
 The input file format is **identical** to the Fortran version.  Lines
