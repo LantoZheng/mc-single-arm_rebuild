@@ -1,0 +1,56 @@
+!
+! Uniform illumination Monte-Carlo results
+!
+! Spectrometer: SHMS
+!
+       3000  P  spect (MeV/c)
+         15  TH spect (deg)
+!
+! Monte-Carlo limits:
+!
+        -20  GEN_LIM down DP/P   (half width, %)
+         30  GEN_LIM up   DP/P   (half width, %)
+        -65  GEN_LIM down Theta  (half width, mr)
+         65  GEN_LIM up   Theta  (half width, mr)
+        -60  GEN_LIM down Phi    (half width, mr)
+         60  GEN_LIM up   Phi    (half width, mr)
+       0.06  Beam X (cm)
+       0.06  Beam Y (cm)
+       0.02  Target length (cm)
+
+     100000  Monte-Carlo trials
+
+          0  stopped in HB entrance
+          0  stopped in HB mag entrance
+          0  stopped in HB mag exit
+          0  stopped in HB exit
+          0  stopped in collimator HOR
+          0  stopped in collimator VERT
+          0  stopped in collimator OCT
+          0  stopped in Q1 entrance
+          0  stopped in Q1 midplane
+          0  stopped in Q1 exit
+          0  stopped in Q2 entrance
+          0  stopped in Q2 midplane
+          0  stopped in Q2 exit
+          0  stopped in Q3 entrance
+          0  stopped in Q3 midplane
+          0  stopped in Q3 exit
+          0  stopped in D1 entrance
+          0  stopped in D1 exit
+
+     100000  Initial Trials
+     100000  Trials made it to the hut
+          0  Trial cut in dc1
+          0  Trial cut in dc2
+          0  Trial cut in s1
+          0  Trial cut in s2
+          0  Trial cut in s3
+          0  Trial cut in cal
+     100000  Trials made it through the detectors
+     100000  Trials passed all cuts
+
+DPP ave error, resolution =         -4.9785688           14.431025  %
+DTH ave error, resolution =        -0.30271034            37.67094  mr
+DPH ave error, resolution =        0.084285826           34.685181  mr
+ZTG ave error, resolution =          2.0013782          0.14591247  cm
