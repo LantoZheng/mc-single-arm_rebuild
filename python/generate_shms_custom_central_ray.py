@@ -18,6 +18,7 @@ It then runs the Python Monte-Carlo engine to produce:
 
 import os
 import sys
+from typing import List
 
 from mc_single_arm import run
 
@@ -34,7 +35,7 @@ def _usage_and_exit() -> None:
     sys.exit(1)
 
 
-def _build_input_lines(n_trials: int, p_spec_mev: float, th_spec_deg: float) -> list:
+def _build_input_lines(n_trials: int, p_spec_mev: float, th_spec_deg: float) -> List[str]:
     return [
         "!------------------------------------------------------------------------------\n",
         "! Auto-generated SHMS standard configuration with custom central ray\n",
@@ -46,9 +47,9 @@ def _build_input_lines(n_trials: int, p_spec_mev: float, th_spec_deg: float) -> 
         "     -20.0\tM.C. DP/P  down limit\n",
         "      30.0\tM.C. DP/P  up   limit\n",
         "     -65.0\tM.C. Theta ( dy/dz) down limit (mr)\n",
-        "      65.0\tM.C. Theta down limit (mr)\n",
+        "      65.0\tM.C. Theta up limit (mr)\n",
         "     -60.0\tM.C. Phi (dx/dz)  down limit (mr)\n",
-        "      60.0\tM.C. Phi   down limit (mr)\n",
+        "      60.0\tM.C. Phi   up limit (mr)\n",
         "      0.060\tHoriz beam spot size in cm (Full width of +/- 3 sigma)\n",
         "      0.060\tVert  beam spot size in cm (Full width of +/- 3 sigma)\n",
         "      10.0  \tLength of target (Full width, cm)\n",
