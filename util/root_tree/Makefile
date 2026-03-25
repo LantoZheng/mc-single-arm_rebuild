@@ -24,14 +24,32 @@ ifeq ($(MYOS),Linux)
   F77 := gfortran
 endif
 
-ROOTSYS=/cvmfs/oasis.opensciencegrid.org/jlab/scicomp/sw/el9/root/6.30.04-gcc11.4.0
+# Prefer a user-provided ROOTSYS; otherwise, discover ROOT from root-config on PATH.
+ifneq ($(filter clean,$(MAKECMDGOALS)),clean)
+  ifneq ($(ROOTSYS),)
+    ROOTCONFIG_CAND := $(ROOTSYS)/bin/root-config
+    ifneq ($(wildcard $(ROOTCONFIG_CAND)),)
+      ROOTCONFIG := $(ROOTCONFIG_CAND)
+    endif
+  endif
+
+  ROOTCONFIG ?= $(shell command -v root-config 2>/dev/null)
+  ifeq ($(ROOTCONFIG),)
+    $(error root-config not found; set ROOTSYS or add ROOT to PATH)
+  endif
+
+  ROOTSYS ?= $(shell $(ROOTCONFIG) --prefix)
+  ROOTLIBS     := $(shell $(ROOTCONFIG) --libs)
+  ROOTINCLUDE  := -I$(shell $(ROOTCONFIG) --incdir)
+else
+  ROOTLIBS     :=
+  ROOTINCLUDE  :=
+endif
 CXX=g++
 CXXFLAGS0 = -O3 -std=c++17
 CXXFLAGS=$(CXXFLAGS0) $(DROOT)
 ROOTDIR=$(ROOTSYS)
 DMYROOT= -DMYROOT
-ROOTLIBS     := $(shell $(ROOTDIR)/bin/root-config --prefix=$(ROOTDIR)  --libs)
-ROOTINCLUDE  := -I $(shell $(ROOTDIR)/bin/root-config --prefix=$(ROOTDIR) --incdir)
 
 none: make_root_tree
 
@@ -48,4 +66,3 @@ make_root_tree: $(my_objs) froot.co
 
 clean:
 	$(RM) *.o *.co make_root_tree
-
