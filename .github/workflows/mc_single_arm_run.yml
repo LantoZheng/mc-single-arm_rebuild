@@ -27,15 +27,11 @@ jobs:
 
       - name: Compile ROOT tree converter
         working-directory: util/root_tree
+        env:
+          PATH: /opt/local/bin:${PATH}
         run: |
-          if command -v root-config >/dev/null 2>&1; then
-            ROOTSYS=$(root-config --prefix)
-            echo "Using ROOT from ${ROOTSYS}"
-            make ROOTSYS="${ROOTSYS}"
-          else
-            echo "root-config not found; falling back to Makefile default ROOTSYS"
-            make
-          fi
+          export PATH="/opt/local/bin:${PATH}"
+          make
 
       - name: Create worksim directory
         run: mkdir -p worksim
