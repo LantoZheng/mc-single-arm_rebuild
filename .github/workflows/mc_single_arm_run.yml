@@ -1,0 +1,55 @@
+name: Run mc-single-arm Monte Carlo
+
+on:
+  workflow_dispatch:
+    inputs:
+      inp_file:
+        description: >
+          Name of the input file to use (stem only, without .inp extension).
+          The file must exist in the infiles/ directory.
+          Available examples: hms_40deg_carbon_1560, kpp_shms_488,
+          shms_20cmtarg_20deg_2gev_wc_mscat_cer,
+          shms_20cmtarg_20deg_6gev_wc_mscat_cer,
+          shms_20deg_3gev_10cmtarg_cryo17,
+          shms_pointtarg_20deg_2gev_wc_msct_cer_sieve
+        required: true
+        default: hms_40deg_carbon_1560
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    container: eicweb/jug_xl:25.03.1-stable
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile mc_single_arm
+        working-directory: src
+        run: make
+
+      - name: Create worksim directory
+        run: mkdir -p worksim
+
+      - name: Run Monte Carlo simulation
+        working-directory: src
+        run: |
+          ./mc_single_arm << 'EOF'
+          ${{ github.event.inputs.inp_file }}
+          EOF
+
+      - name: Upload output file
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-output-${{ github.event.inputs.inp_file }}
+          path: outfiles/${{ github.event.inputs.inp_file }}.out
+          if-no-files-found: error
+
+      - name: Upload binary file
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-binary-${{ github.event.inputs.inp_file }}
+          path: worksim/${{ github.event.inputs.inp_file }}.bin
+          if-no-files-found: warn
