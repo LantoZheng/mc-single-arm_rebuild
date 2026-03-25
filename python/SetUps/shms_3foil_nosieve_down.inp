@@ -7,7 +7,7 @@
     15.000	Spectrometer angle (in degrees) # 20~30 deg
 
     # All multiply by 1.5
-    -20.0	M.C. DP/P  down limit #Multiply by 1.5
+    -30.0	M.C. DP/P  down limit #Multiply by 1.5
      30.0	M.C. DP/P  up   limit
     -65.0	M.C. Theta ( dy/dz) down limit (mr)
      65.0	M.C. Theta up limit (mr)
@@ -36,6 +36,6 @@
      0	        particle identification :e=0, p=1, d=2, pi=3, ka=4
      1	        flag for multiple scattering
      1	        flag for wire chamber smearing
-     1	        flag for storing all events (including failed events with stop_id > 0)
+     0	        flag for storing all events (including failed events with stop_id > 0)
      0          flag for beam energy, if >0 then calculate for C elastic
      0          flag to use sieve
