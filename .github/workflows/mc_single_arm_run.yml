@@ -7,11 +7,6 @@ on:
         description: >
           Name of the input file to use (stem only, without .inp extension).
           The file must exist in the infiles/ directory.
-          Available examples: hms_40deg_carbon_1560, kpp_shms_488,
-          shms_20cmtarg_20deg_2gev_wc_mscat_cer,
-          shms_20cmtarg_20deg_6gev_wc_mscat_cer,
-          shms_20deg_3gev_10cmtarg_cryo17,
-          shms_pointtarg_20deg_2gev_wc_msct_cer_sieve
         required: true
         default: hms_40deg_carbon_1560
 
