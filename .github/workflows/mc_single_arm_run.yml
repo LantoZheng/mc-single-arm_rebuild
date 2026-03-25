@@ -25,6 +25,18 @@ jobs:
         working-directory: src
         run: make
 
+      - name: Compile ROOT tree converter
+        working-directory: util/root_tree
+        run: |
+          if command -v root-config >/dev/null 2>&1; then
+            ROOTSYS=$(root-config --prefix)
+            echo "Using ROOT from ${ROOTSYS}"
+            make ROOTSYS="${ROOTSYS}"
+          else
+            echo "root-config not found; falling back to Makefile default ROOTSYS"
+            make
+          fi
+
       - name: Create worksim directory
         run: mkdir -p worksim
 
@@ -35,11 +47,25 @@ jobs:
           ${{ github.event.inputs.inp_file }}
           EOF
 
+      - name: Convert binary to ROOT
+        working-directory: util/root_tree
+        run: |
+          ./make_root_tree << 'EOF'
+          ${{ github.event.inputs.inp_file }}
+          EOF
+
       - name: Upload output file
         uses: actions/upload-artifact@v4
         with:
           name: mc-output-${{ github.event.inputs.inp_file }}
           path: outfiles/${{ github.event.inputs.inp_file }}.out
+          if-no-files-found: error
+
+      - name: Upload ROOT file
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-root-${{ github.event.inputs.inp_file }}
+          path: worksim/${{ github.event.inputs.inp_file }}.root
           if-no-files-found: error
 
       - name: Upload binary file
